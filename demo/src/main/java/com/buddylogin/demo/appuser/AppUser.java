@@ -36,6 +36,7 @@ public class AppUser implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+    private String quizId;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
     private Boolean locked = false ;                        //to enable just this user when they log into their account
@@ -45,12 +46,14 @@ public class AppUser implements UserDetails {
                    String lastName,
                    String email,
                    String password,
+                   String quizId,
                    AppUserRole appUserRole
                    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.quizId = quizId;
         this.appUserRole = appUserRole;
 
     }
@@ -79,6 +82,10 @@ public class AppUser implements UserDetails {
     public String getLastName() {
 
         return lastName;
+    }
+
+    public AppUser(String quizId) {
+        this.quizId = quizId;
     }
 
     @Override

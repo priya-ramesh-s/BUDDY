@@ -18,12 +18,12 @@ import java.util.UUID;
 public class AppUserService implements UserDetailsService, UserDetailsPasswordService {
 
     private final static String USER_NOT_FOUND_MSG =
-            "user with email %s not found";
+            "User with email %s not found";
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
-    @Override
+    @Override                                             //throw and catch error message
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
         return appUserRepository.findByEmail(email)
@@ -45,7 +45,7 @@ public class AppUserService implements UserDetailsService, UserDetailsPasswordSe
 
         if (userExists) {
             //send confirmation again if not confirmed first time
-            throw new IllegalStateException("email already exists");
+            throw new IllegalStateException("Email already exists");
         }
 
         String encodedPassword = bCryptPasswordEncoder
@@ -56,7 +56,7 @@ public class AppUserService implements UserDetailsService, UserDetailsPasswordSe
         appUserRepository.save(appUser); // saves each user to DB
 
         String token = UUID.randomUUID().toString();
-//        TODO: SEND confirmation token   // sends token for confirmation, without this "user is disabled" error on login page
+//       sends token for confirmation, without this "user is disabled" error on login page
 
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
@@ -70,7 +70,7 @@ public class AppUserService implements UserDetailsService, UserDetailsPasswordSe
 
         return token;
 
-        //TODO: SEND EMAIL
+
     }
 
     public int enableAppUser(String email) {
