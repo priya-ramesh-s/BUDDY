@@ -19,7 +19,7 @@ spring:
 
   mail:
     host: localhost
-    port: 1025   # changes according to port in maildev
+    port: 1025
     username: hello
     password: hello
 
